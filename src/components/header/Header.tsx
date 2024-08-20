@@ -18,7 +18,7 @@ export function Header() {
     return (
         <header className="header">
             <div className="logo" onClick={onHomeClick}>
-                <img src={logoIcon} alt="logo"/>
+                <img src={logoIcon} alt="logo" className="react"/>
                 <h1>Find lovely movie</h1>
             </div>
             <ul className="menu">
