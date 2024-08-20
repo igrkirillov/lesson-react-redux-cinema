@@ -14,7 +14,7 @@ export function MovieDetails() {
     const dispatch = useAppDispatch();
     useEffect(() => {
         dispatch(fetchDetails(id));
-    }, [])
+    }, [id, dispatch])
     return loading
         ? (<Spinner/>)
         : error ? (<Error error={error}/>) : (<MovieCard details={details}/>)

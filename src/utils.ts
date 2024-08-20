@@ -6,16 +6,17 @@ export const delay = async (secs: number) => {
     });
 }
 
-export function debounce<Func extends Function, Arg>(func: Func, timeout: number = 200) {
+type EventListener<Arg> = (...args: Arg[]) => void;
+export function debounce<Arg>(eventListener: EventListener<Arg>, timeout: number = 200) {
     let timer: number | null  = null;
     return (...args: Arg[]) => {
         if (timer) {
-            console.log("call is debounced: " + func);
+            console.log("call is debounced: " + eventListener);
             clearTimeout(timer);
         }
         timer = setTimeout(() => {
             console.log("call func")
-            func(...args);
+            eventListener(...args);
             timer = null;
         }, timeout);
     }
