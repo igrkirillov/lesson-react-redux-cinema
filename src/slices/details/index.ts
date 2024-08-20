@@ -1,6 +1,5 @@
 import {asyncThunkCreator, buildCreateSlice, PayloadAction} from "@reduxjs/toolkit";
 import {DetailInfo, DetailsState} from "../../types";
-import {delay} from "../../utils";
 import config from "../../../config/app.json"
 
 const createSliceWithThunk = buildCreateSlice({
@@ -27,7 +26,6 @@ export const detailsSlice = createSliceWithThunk({
                     if (!id) {
                         return {} as DetailInfo;
                     }
-                    await delay(1);
                     const response = await fetch(config.omdbApiUrl + "&i=" + id + "&plot=full");
                     if (response.ok) {
                         return (await response.json()) as DetailInfo;

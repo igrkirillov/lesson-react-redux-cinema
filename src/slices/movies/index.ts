@@ -1,6 +1,5 @@
 import {asyncThunkCreator, buildCreateSlice, PayloadAction} from "@reduxjs/toolkit";
 import {Movie, MoviesState} from "../../types";
-import {delay} from "../../utils";
 import config from "../../../config/app.json"
 
 const createSliceWithThunk = buildCreateSlice({
@@ -31,7 +30,6 @@ export const moviesSlice = createSliceWithThunk({
                     if (!searchText) {
                         return [];
                     }
-                    await delay(1);
                     const response = await fetch(config.omdbApiUrl + "&s=" + searchText);
                     if (response.ok) {
                         return (await response.json())["Search"] as Movie[];

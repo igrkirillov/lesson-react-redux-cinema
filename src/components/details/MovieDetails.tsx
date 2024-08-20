@@ -44,7 +44,9 @@ function MovieCard(props: {details: DetailInfo}) {
                     </div>
                 </div>
                 <p className="movie-plot">
-                    <span><b><center>Plot</center></b></span>
+                    <div className="movie-plot-title-container">
+                        <span><b>Plot</b></span>
+                    </div>
                     <span>{d.Plot}</span>
                 </p>
             </div>

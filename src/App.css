@@ -61,6 +61,10 @@
   padding: 2em;
 }
 
+.card-actions {
+  text-align: center;
+}
+
 .read-the-docs {
   color: #888;
 }
@@ -167,6 +171,11 @@
 .movie-plot {
   width: 100%;
   text-wrap: normal;
+}
+
+.movie-plot-title-container {
+  width: 100%;
+  text-align: center;
 }
 
 .favorite-item-container {
