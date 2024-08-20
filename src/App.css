@@ -1,8 +1,9 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
   text-align: center;
+  width: 100%;
 }
 
 .logo {
@@ -10,6 +11,7 @@
   flex-direction: row;
   will-change: filter;
   transition: filter 300ms;
+  cursor: pointer;
 }
 
 .logo h1 {
@@ -23,6 +25,21 @@
 
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.menu {
+  list-style: none;
+}
+
+.menu-item a {
+  font-weight: 700;
 }
 
 @keyframes logo-spin {
@@ -51,6 +68,7 @@
 .movies {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .movies-item {
@@ -62,11 +80,6 @@
   padding: 4px;
   border: white solid 1px;
   border-radius: 4px;
-  cursor: pointer;
-}
-
-.movies-item:hover {
-  background-color: gray;
 }
 
 .movies-item:nth-child(n + 2) {
@@ -129,4 +142,50 @@
   height: 128px;
   object-fit: contain;
   vertical-align: middle;
+}
+
+.movie-card {
+  display: flex;
+  flex-direction: row;
+}
+
+.movie-info {
+  width: 70%;
+  text-align: left;
+}
+
+.text-info-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.movie-poster {
+  width: 30%;
+}
+
+.movie-plot {
+  width: 100%;
+  text-wrap: normal;
+}
+
+.favorite-item-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  justify-items: center;
+}
+
+.favorite-item-container div {
+  width: 20%;
+}
+
+.favorite-header {
+  font-weight: 700;
+}
+
+.favorite-item-poster {
+  width: 128px;
+  height: 128px;
+  object-fit: contain;
 }

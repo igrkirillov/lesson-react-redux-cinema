@@ -22,6 +22,9 @@ export const moviesSlice = createSliceWithThunk({
         moviesState: (state) => state
     },
     reducers: (create) => ({
+        setFilter: create.reducer((state, action: PayloadAction<string>) => {
+           state.filter = action.payload;
+        }),
         fetchMovies: create.asyncThunk<Movie[], string>(
             async  (searchText, thunkApi) => {
                 try {
@@ -57,5 +60,5 @@ export const moviesSlice = createSliceWithThunk({
     })
 })
 
-export const {fetchMovies} = moviesSlice.actions;
+export const {fetchMovies, setFilter} = moviesSlice.actions;
 export const {moviesSelector, moviesState} = moviesSlice.selectors;
