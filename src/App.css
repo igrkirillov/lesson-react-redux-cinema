@@ -40,3 +40,60 @@
 .read-the-docs {
   color: #888;
 }
+
+.movies {
+  display: flex;
+  flex-direction: column;
+}
+
+.movies-item {
+  display: block;
+  min-height: 50px;
+  width: 400px;
+  text-align: left;
+  vertical-align: center;
+  padding: 4px;
+  border: white solid 1px;
+  border-radius: 4px;
+}
+
+.movies-item:nth-child(n + 2) {
+  margin-top: 20px;
+}
+
+.filter {
+  margin-top: 4px;
+  position: relative;
+  width: fit-content;
+}
+
+.filter-input {
+  margin-left: 4px;
+}
+
+.filter-active {
+  padding-right: 20px;
+}
+
+.filter-input {
+  max-width: 300px;
+}
+
+.clear-action {
+  position: absolute;
+  right: 2px;
+  top: 4px;
+}
+
+.clear-action img {
+  width: 16px;
+  height: 16px;
+}
+
+.clear-action img:hover {
+  background-color: gray;
+}
+
+.display-none {
+  display: none;
+}

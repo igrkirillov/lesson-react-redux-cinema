@@ -1,10 +1,11 @@
 export type Movie = {
-    id: number,
-    name: string
+    Title: string
+    Year: string
 }
 
 export type MoviesState = {
     movies: Movie[],
     loading: boolean,
-    error: Error | null
+    error: Error | null,
+    filter: string
 }
