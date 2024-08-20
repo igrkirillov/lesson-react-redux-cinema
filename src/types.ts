@@ -1,6 +1,8 @@
 export type Movie = {
     Title: string
-    Year: string
+    Year: string,
+    imdbID: string,
+    Poster: string //url
 }
 
 export type MoviesState = {
@@ -8,4 +10,8 @@ export type MoviesState = {
     loading: boolean,
     error: Error | null,
     filter: string
+}
+
+export type MovieDetailInfo = {
+
 }

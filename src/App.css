@@ -55,6 +55,11 @@
   padding: 4px;
   border: white solid 1px;
   border-radius: 4px;
+  cursor: pointer;
+}
+
+.movies-item:hover {
+  background-color: gray;
 }
 
 .movies-item:nth-child(n + 2) {
@@ -62,9 +67,9 @@
 }
 
 .filter {
-  margin-top: 4px;
   position: relative;
   width: fit-content;
+  margin: 0 auto;
 }
 
 .filter-input {
@@ -96,4 +101,25 @@
 
 .display-none {
   display: none;
+}
+
+.movies-item {
+  display: flex;
+  flex-direction: row;
+}
+
+.movies-item-text {
+  width: 70%;
+}
+
+.movies-item-image {
+  width: 30%;
+  align-self: center;
+}
+
+.poster-image {
+  width: 128px;
+  height: 128px;
+  object-fit: contain;
+  vertical-align: middle;
 }

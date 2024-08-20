@@ -5,7 +5,7 @@ import {Outlet, Route, Routes} from "react-router";
 import {fetchMovies, loadingSelector, moviesSelector, moviesState} from "./slices/movies";
 import {useAppDispatch, useAppSelector, useAppStore} from "./hooks";
 import {store} from "./store";
-import {Movie} from "./types";
+import {Movie, MovieDetailInfo} from "./types";
 import clearIcon from "./assets/clear.png"
 import {debounce} from "./utils";
 
@@ -15,6 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout></Layout>}>
             <Route path="/" element={<Movies></Movies>}></Route>
+            <Route path="/movie/:id" element={<Movies></Movies>}></Route>
           </Route>
         </Routes>
       </Provider>
@@ -41,16 +42,24 @@ function Movies() {
 function MoviesItems(props: {movies: Movie[]}) {
     const {movies} = props;
     return movies.length > 0
-        ? (<ul className="movies">{movies.map(m => (<MoviesItem key={movies.indexOf(m)} movie={m}/>))}</ul>)
+        ? (<ul className="movies">{movies.map(m => (<MoviesItem key={m.imdbID} movie={m}/>))}</ul>)
         : (<div><span>Не найдено ни одного фильма</span></div>)
 }
 
 function MoviesItem(props: {movie: Movie}) {
     const {movie: m} = props;
+    const onClick = (event: MouseEvent<HTMLAnchorElement>) => {
+        event.preventDefault();
+    }
     return (
         <li className="movies-item">
-            <span><b>Title: </b><a href="#">{m.Title}</a></span><br/>
-            <span><b>Year: </b>{m.Year}</span>
+            <div className="movies-item-text">
+                <span><b>Title: </b>{m.Title}</span><br/>
+                <span><b>Year: </b>{m.Year}</span>
+            </div>
+            <div className="movies-item-image">
+                <img src={m.Poster} alt="poster" className="poster-image"/>
+            </div>
         </li>
     )
 }
@@ -104,6 +113,20 @@ function Search() {
             <a href="#" onClick={onClearClick} className="clear-action display-none" ref={clearActionRef}>
                 <img src={clearIcon} alt="clear icon"/>
             </a>
+        </div>
+    )
+}
+
+function MovieDetails(props: {detailInfo: MovieDetailInfo}) {
+    const {detailInfo} = props;
+    return (
+        <div className="movie-card">
+            <div className="movie-info">
+                info
+            </div>
+            <div className="movie-poster">
+                poster
+            </div>
         </div>
     )
 }
