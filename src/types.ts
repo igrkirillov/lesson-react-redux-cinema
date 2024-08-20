@@ -12,6 +12,12 @@ export type MoviesState = {
     filter: string
 }
 
-export type MovieDetailInfo = {
+export type DetailInfo = {
+    Title: string
+}
 
+export type DetailsState = {
+    details: DetailInfo,
+    loading: boolean,
+    error: Error | null
 }

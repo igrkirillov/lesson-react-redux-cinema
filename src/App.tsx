@@ -1,21 +1,25 @@
-import {ChangeEvent, useEffect, useRef, MouseEvent} from 'react'
+import {ChangeEvent, MouseEvent, useEffect, useRef} from 'react'
 import './App.css'
 import {Provider} from "react-redux";
-import {Outlet, Route, Routes} from "react-router";
-import {fetchMovies, loadingSelector, moviesSelector, moviesState} from "./slices/movies";
-import {useAppDispatch, useAppSelector, useAppStore} from "./hooks";
+import {Outlet, Route, Routes, useNavigate, useParams} from "react-router";
+import {fetchMovies, moviesState} from "./slices/movies";
+import {useAppDispatch, useAppSelector} from "./hooks";
 import {store} from "./store";
-import {Movie, MovieDetailInfo} from "./types";
+import {Movie, DetailInfo} from "./types";
 import clearIcon from "./assets/clear.png"
 import {debounce} from "./utils";
+import {detailsState, fetchDetails} from "./slices/details";
+import {NavLink} from "react-router-dom";
+import logoIcon from "./assets/react.svg";
 
 function App() {
   return (
       <Provider store={store}>
         <Routes>
           <Route path="/" element={<Layout></Layout>}>
-            <Route path="/" element={<Movies></Movies>}></Route>
-            <Route path="/movie/:id" element={<Movies></Movies>}></Route>
+            <Route path="/" element={<NavLink to="/"/>}/>
+            <Route path="/movies" element={<><Search></Search><Movies></Movies></>}/>
+            <Route path="/movies/:id" element={<MovieDetails></MovieDetails>}/>
           </Route>
         </Routes>
       </Provider>
@@ -23,10 +27,19 @@ function App() {
 }
 export default App
 
+function Logo() {
+    return (
+        <div className="logo">
+            <img src={logoIcon} alt="logo"/>
+            <h1>Find lovely movie</h1>
+        </div>
+    )
+}
+
 function Layout() {
   return (
       <div className="layout">
-          <Search></Search>
+          <Logo></Logo>
           <Outlet></Outlet>
       </div>
   )
@@ -48,11 +61,13 @@ function MoviesItems(props: {movies: Movie[]}) {
 
 function MoviesItem(props: {movie: Movie}) {
     const {movie: m} = props;
-    const onClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    const navigate = useNavigate();
+    const onClick = (event: MouseEvent<HTMLLIElement>) => {
         event.preventDefault();
+        navigate(`/movies/${m.imdbID}`)
     }
     return (
-        <li className="movies-item">
+        <li className="movies-item" onClick={onClick}>
             <div className="movies-item-text">
                 <span><b>Title: </b>{m.Title}</span><br/>
                 <span><b>Year: </b>{m.Year}</span>
@@ -117,8 +132,20 @@ function Search() {
     )
 }
 
-function MovieDetails(props: {detailInfo: MovieDetailInfo}) {
-    const {detailInfo} = props;
+function MovieDetails() {
+    const id = useParams()["id"] as string;
+    const {details, loading, error} = useAppSelector(detailsState);
+    const dispatch = useAppDispatch();
+    useEffect(() => {
+        dispatch(fetchDetails(id));
+    }, [])
+    return loading
+        ? (<Spinner/>)
+        : error ? (<Error error={error}/>) : (<MovieCard details={details}/>)
+}
+
+function MovieCard(props: {details: DetailInfo}) {
+    const {details} = props;
     return (
         <div className="movie-card">
             <div className="movie-info">
