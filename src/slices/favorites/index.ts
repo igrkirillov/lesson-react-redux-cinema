@@ -23,8 +23,8 @@ export const favoritesSlice = createSlice({
             }
             saveToLocalStorage(current(state.favorites));
         }),
-        removeFavorite: create.reducer((state, action: PayloadAction<FavoriteNote>) => {
-            const index = state.favorites.findIndex(f => f.movie.imdbID === action.payload.movie.imdbID);
+        removeFavorite: create.reducer((state, action: PayloadAction<Movie>) => {
+            const index = state.favorites.findIndex(f => f.movie.imdbID === action.payload.imdbID);
             if (index >= 0) {
                 state.favorites.splice(index, 1);
             }
