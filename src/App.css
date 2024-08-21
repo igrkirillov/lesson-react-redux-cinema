@@ -183,7 +183,7 @@
 }
 
 /* iPhone 12, 12 Pro, 13, 13 Pro (портретный режим) */
-@media only screen and (orientation: portrait) and (min-device-width: 390px) and (max-device-height: 844px) and (-webkit-device-pixel-ratio: 3){
+@media only screen and (orientation: portrait) and (min-device-width: 390px) and (max-device-height: 844px) {
   .movie-card {
     flex-direction: column;
   }
