@@ -4,6 +4,7 @@
   padding: 1rem;
   text-align: center;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .logo {
@@ -116,18 +117,18 @@
 }
 
 .movies-item-text {
-  width: 70%;
+  width: 100%;
 }
 
 .movies-item-image {
-  width: 30%;
+  width: 128px;
   align-self: center;
 }
 
 .poster-image {
   width: 128px;
   height: 128px;
-  object-fit: contain;
+  object-fit: scale-down;
   vertical-align: middle;
 }
 
