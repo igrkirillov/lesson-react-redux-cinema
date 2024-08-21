@@ -1,4 +1,4 @@
-name: Netology AHJ
+name: Lesson CI/CD
 
 on:
   push:
