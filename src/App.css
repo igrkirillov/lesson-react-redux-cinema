@@ -185,7 +185,7 @@
 /* iPhone 12, 12 Pro, 13, 13 Pro (портретный режим) */
 @media only screen and (orientation: portrait) and (max-device-height: 844px) {
   .movie-card {
-    flex-direction: column;
+    flex-direction: column-reverse;
   }
   .movie-info {
     width: 100%;
