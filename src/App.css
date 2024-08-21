@@ -204,9 +204,6 @@
     margin: 10px 0;
   }
   .text-info-container {
-    flex-direction: column;
-  }
-  .card-actions {
-    margin: 10px auto 0 auto;
+    flex-direction: column-reverse;
   }
 }
