@@ -121,12 +121,12 @@
 }
 
 .movies-item-image {
-  width: 128px;
+  width: 100px;
   align-self: center;
 }
 
 .poster-image {
-  width: 128px;
+  width: 100px;
   height: 128px;
   object-fit: scale-down;
   vertical-align: middle;
