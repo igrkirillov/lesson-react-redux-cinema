@@ -30,7 +30,10 @@ export const moviesSlice = createSliceWithThunk({
                     if (!searchText) {
                         return [];
                     }
-                    const response = await fetch(config.omdbApiUrl + "&s=" + searchText);
+                    const params = new URLSearchParams();
+                    params.set("s", searchText);
+                    const response = await fetch(config.omdbApiUrl + "&" + params.toString(), {
+                    });
                     if (response.ok) {
                         return (await response.json())["Search"] as Movie[];
                     } else {
