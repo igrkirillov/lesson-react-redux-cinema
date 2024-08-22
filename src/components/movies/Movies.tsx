@@ -1,5 +1,5 @@
 import {useAppDispatch, useAppSelector} from "../../hooks";
-import {fetchMovies, moviesState} from "../../slices/movies";
+import {fetchMovies, moviesState, setSearchText} from "../../slices/movies";
 import {Movie} from "../../types";
 import {useNavigate} from "react-router";
 import {ChangeEvent, MouseEvent, useEffect, useRef} from "react";
@@ -27,9 +27,10 @@ function MoviesItems(props: {movies: Movie[]}) {
 function MoviesItem(props: {movie: Movie}) {
     const {movie: m} = props;
     const navigate = useNavigate();
+    const [searchParams, ] = useSearchParams();
     const onDetailsClick = (event: MouseEvent<HTMLAnchorElement>) => {
         event.preventDefault();
-        navigate(`/movies/${m.imdbID}`)
+        navigate(`/movies/${m.imdbID}?${searchParams}`)
     }
     return (
         <li className="movies-item">
@@ -48,8 +49,8 @@ function MoviesItem(props: {movie: Movie}) {
 }
 
 export function Search() {
-    const [searchParams, setSearchParams] = useSearchParams();
-    const filterValue = searchParams.get("s") || "";
+    const [searchParams, ] = useSearchParams();
+    const searchText = searchParams.get("s") || "";
     const dispatch = useAppDispatch();
     const clearActionRef = useRef<HTMLAnchorElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
@@ -67,12 +68,13 @@ export function Search() {
         activateOrDeactivateClearAction(inputRef.current?.value);
     });
     useEffect(() => {
-        dispatch(fetchMovies(filterValue));
-    }, []); //mounted
+        dispatch(setSearchText(searchText))
+        dispatch(fetchMovies(searchText))
+    }, []) //mounted
     const onChange = (event: ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
         const value = event.target.value;
-        setSearchParams(new URLSearchParams([["s", value]]));
+        dispatch(setSearchText(value))
         dispatch(fetchMovies(value));
         activateOrDeactivateClearAction(value);
     }
@@ -82,7 +84,7 @@ export function Search() {
         if (inputElement) {
             const newValue = "";
             inputElement.value = newValue;
-            setSearchParams(new URLSearchParams([["s", newValue]]));
+            dispatch(setSearchText(newValue))
             dispatch(fetchMovies(newValue));
             activateOrDeactivateClearAction(newValue);
         }
@@ -91,7 +93,7 @@ export function Search() {
         <div className="filter">
             <label htmlFor="filter" className="filter-label">Найти фильм:</label>
             <input className="filter-input" name="filter" placeholder="only english words"
-                   defaultValue={filterValue} onChange={debounce(onChange, 500)} ref={inputRef}/>
+                   defaultValue={searchText} onChange={debounce(onChange, 500)} ref={inputRef}/>
             <a href="#" onClick={onClearClick} className="clear-action display-none" ref={clearActionRef}>
                 <img src={clearIcon} alt="clear icon"/>
             </a>
