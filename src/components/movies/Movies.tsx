@@ -90,7 +90,7 @@ export function Search() {
     return (
         <div className="filter">
             <label htmlFor="filter" className="filter-label">Найти фильм:</label>
-            <input className="filter-input" name="filter" placeholder="only english"
+            <input className="filter-input" name="filter" placeholder="only english words"
                    defaultValue={filterValue} onChange={debounce(onChange, 500)} ref={inputRef}/>
             <a href="#" onClick={onClearClick} className="clear-action display-none" ref={clearActionRef}>
                 <img src={clearIcon} alt="clear icon"/>
