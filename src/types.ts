@@ -8,8 +8,7 @@ export type Movie = {
 export type MoviesState = {
     movies: Movie[],
     loading: boolean,
-    error: Error | null,
-    filter: string
+    error: Error | null
 }
 
 export type DetailInfo = {

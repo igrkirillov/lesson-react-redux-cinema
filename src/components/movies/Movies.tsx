@@ -1,5 +1,5 @@
 import {useAppDispatch, useAppSelector} from "../../hooks";
-import {fetchMovies, moviesState, setFilter} from "../../slices/movies";
+import {fetchMovies, moviesState} from "../../slices/movies";
 import {Movie} from "../../types";
 import {useNavigate} from "react-router";
 import {ChangeEvent, MouseEvent, useEffect, useRef} from "react";
@@ -8,6 +8,7 @@ import clearIcon from "../../assets/clear.png";
 import {Spinner} from "../spinner/Spinner";
 import {Error} from "../error/Error";
 import {AddFavoriteWidget} from "../favorites/Favorites";
+import {useSearchParams} from "react-router-dom";
 
 export function Movies() {
     const {loading, movies, error} = useAppSelector(moviesState);
@@ -47,7 +48,8 @@ function MoviesItem(props: {movie: Movie}) {
 }
 
 export function Search() {
-    const {filter: filterValue} = useAppSelector(moviesState);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const filterValue = searchParams.get("s") || "";
     const dispatch = useAppDispatch();
     const clearActionRef = useRef<HTMLAnchorElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
@@ -64,10 +66,13 @@ export function Search() {
         inputRef.current?.focus();
         activateOrDeactivateClearAction(inputRef.current?.value);
     });
+    useEffect(() => {
+        dispatch(fetchMovies(filterValue));
+    }, []); //mounted
     const onChange = (event: ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
         const value = event.target.value;
-        dispatch(setFilter(value));
+        setSearchParams(new URLSearchParams([["s", value]]));
         dispatch(fetchMovies(value));
         activateOrDeactivateClearAction(value);
     }
@@ -77,7 +82,7 @@ export function Search() {
         if (inputElement) {
             const newValue = "";
             inputElement.value = newValue;
-            dispatch(setFilter(newValue));
+            setSearchParams(new URLSearchParams([["s", newValue]]));
             dispatch(fetchMovies(newValue));
             activateOrDeactivateClearAction(newValue);
         }

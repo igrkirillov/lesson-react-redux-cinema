@@ -9,8 +9,7 @@ const createSliceWithThunk = buildCreateSlice({
 const initialState = {
     movies: [],
     loading: false,
-    error: null,
-    filter: ""
+    error: null
 } as MoviesState;
 
 export const moviesSlice = createSliceWithThunk({
@@ -21,9 +20,6 @@ export const moviesSlice = createSliceWithThunk({
         moviesState: (state) => state
     },
     reducers: (create) => ({
-        setFilter: create.reducer((state, action: PayloadAction<string>) => {
-           state.filter = action.payload;
-        }),
         fetchMovies: create.asyncThunk<Movie[], string>(
             async  (searchText, thunkApi) => {
                 try {
@@ -61,5 +57,5 @@ export const moviesSlice = createSliceWithThunk({
     })
 })
 
-export const {fetchMovies, setFilter} = moviesSlice.actions;
-export const {moviesSelector, moviesState} = moviesSlice.selectors;
+export const {fetchMovies} = moviesSlice.actions;
+export const {moviesState} = moviesSlice.selectors;
