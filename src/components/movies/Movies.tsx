@@ -50,7 +50,7 @@ function MoviesItem(props: {movie: Movie}) {
 
 export function Search() {
     const [searchParams, ] = useSearchParams();
-    const searchText = searchParams.get("s") || "";
+    const searchText = (searchParams.get("s") || "").trim();
     const dispatch = useAppDispatch();
     const clearActionRef = useRef<HTMLAnchorElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
@@ -73,7 +73,7 @@ export function Search() {
     }, []) //mounted
     const onChange = (event: ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
-        const value = event.target.value;
+        const value = event.target.value.trim();
         dispatch(setSearchText(value))
         dispatch(fetchMovies(value));
         activateOrDeactivateClearAction(value);
